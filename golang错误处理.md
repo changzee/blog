@@ -274,13 +274,14 @@ func Error(err error) meetyou.HttpCodeResponse {
     var target errors.Error
 
     // 如果错误为业务错误类型则进行特殊格式化处理
-    if errors.As(err, &target) && target != errors.ServiceInnerError {
+    if errors.As(err, &target) {
         var errData interface{} = nil
         if tmp, ok := err.(interface{Data() interface{}}); ok {
             errData = tmp.Data()
         }
         return JSON(target.GetHttpCode(), &Standard{target.GetErrCode(), target.Error(), errData})
     } else {
+        logger.Errorf("响应异常: %+v", err)
         if meetyou.Env == meetyou.DEV || meetyou.Env == meetyou.TEST {
             return String(http.StatusInternalServerError, fmt.Sprintf("系统错误: %+v", err))
         } else {
@@ -303,9 +304,9 @@ func Error(err error) meetyou.HttpCodeResponse {
    import errors2 "github.com/pkg/errors"
    
    if err != nil {
-       err = errors2.WithStack(err)
+        err = errors2.WithStack(err)
    	logger.Errorf("xxx发生错误: %+v", err)
-       // 为错误包一层调用栈信息，这样response.Error能够直接打印
+        // 为错误包一层调用栈信息，这样response.Error能够直接打印
    	return err
    }
    ```
