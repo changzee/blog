@@ -84,7 +84,7 @@ func Metrics(ctx *web.Context) {
 
 ### 统一错误处理机制
 
-“大道至简”的Go采用的错误处理机制一直饱受争议，其设计理念可以参考社区的博客(https://blog.golang.org/errors-are-values)。这种机制给很多人的感觉像是回退到了C语言，处理起来对比(try-catch/monad)来说比较丑陋麻烦, 而且err也容易写飞(很多新人直接`return errors.New("这里发生了个小错误")`)。接下来将探讨如何在这种环境下夹缝求生。
+“大道至简”的Go采用的错误处理机制一直饱受争议，其设计理念可以参考社区的博客(https://blog.golang.org/errors-are-values)。 这种机制给很多人的感觉像是回退到了C语言，处理起来对比(try-catch/monad)来说比较丑陋麻烦, 而且err也容易写飞(很多新人直接`return errors.New("这里发生了个小错误")`)。接下来将探讨如何在这种环境下夹缝求生。
 
 #### 针对WEB请求错误而定义的错误类型
 
