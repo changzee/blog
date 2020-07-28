@@ -62,7 +62,7 @@ func String(ctx *web.Context, httpCode int, data ...string) {
 
 ```go
 // 统一返回格式
-func Echo(ctx *web.COntext) {
+func Echo(ctx *web.Context) {
     response.JSON(ctx, http.StatusOK, &response.Standard{
         "words": "Hello world"
     })
